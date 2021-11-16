@@ -1,0 +1,296 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+         <!-- Begin Page Content -->
+         <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Order History</h1>
+           
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Ordders</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Order Date</th>
+                                    <th>Plate Number</th>
+                                    <th>Tin Number</th>
+                                    <th>Product</th>
+                                 
+                                    <th>Quantity</th>
+                                    <th>Confirmed Size</th>
+                                    <th>Product price</th>
+                                    <th>Product paid</th>
+                                    <th>Status</th>     
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Order Date</th>
+                                    <th>Plate Number</th>
+                                    <th>Tin Number</th>
+                                    <th>Product</th>
+                                   
+                                    <th>Quantity</th>
+                                    <th>Confirmed Size</th>
+                                    <th>Product price</th>
+                                    <th>Product paid</th>
+                                    <th>Status</th>
+                                    
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {%for order in orders%}
+                                <tr>
+                                    
+                                    <td>{{order.orderDate}}</td>
+                                    <td>{{order.detail.licencePlate}}</td>
+                                    <td>{{order.detail.tinNumber}}</td>
+                                    <td>{{order.product.product_name}} {{order.product.product_type}} {{order.product.product_size}} {{order.product.unit}}</td>
+                                    
+                                  
+                                    <td> {%if order.inOrder%}
+                                        <i class="fas fa-plus fa-1x text-success"></i> {{order.quantity}} kuntal
+                                        {%elif order.outOrder%}
+                                        <i class="fas fa-minus fa-1x text-danger"></i> {{order.quantity}} kuntal
+                                        {%endif%}
+                                    </td>
+                                    <td> {%if order.inOrder%}
+                                            {%if order.cquantity == order.quantity %}
+                                                <i class="fas fa-success fa-1x text-success">{{order.cquantity}} </i> kuntal  <i class="fas fa-check-circle fa-1x text-success"></i>
+                                            {% elif order.cquantity < order.quantity%}
+                                                {%if order.cquantity == 0 %}
+                                                    {{order.cquantity}}  kuntal
+                                                {%else%}
+                                                    <i class="fas fa-success fa-1x text-danger">{{order.cquantity}}</i> Kuntal  
+                                                {%endif%}
+                                            {%else%}
+                                                {{order.cquantity}}  kuntal  
+                                            {%endif%}
+                                        {%elif order.outOrder%}
+                                            {%if order.cquantity == 0 %}
+                                                {{order.cquantity}}  kuntal
+                                            {%elif order.cquantity == order.quantity %}
+                                                <i class="fas fa-success fa-1x text-success">{{order.cquantity}} </i> kuntal  <i class="fas fa-check-circle fa-1x text-success"></i>
+                                            {% elif order.cquantity < order.quantity%}
+                                                <i class="fas fa-success fa-1x text-danger">{{order.cquantity}}</i> Kuntal  
+                                            {%else%}
+                                                {{order.cquantity}}  kuntal  
+                                            {%endif%}
+                                        {%endif%}
+                                    </td>
+                                    <td>{{order.price}} ETB</td>
+                                    {%if order.price == order.amountsPaid %}
+                                    <td> <i class="fas fa-success fa-1x text-success">{{order.amountsPaid}}</i> ETB</td>
+                                    {%elif order.amountsPaid < order.price %}
+                                    <td> <i class="fas fa-success fa-1x text-danger">{{order.amountsPaid}}</i> ETB</td>
+                                    {%endif%}
+                                    <td align="center">
+                                    {%if order.status == 'pending'%}
+                                        <span class="btn btn-info btn-sm">Pending</span> &nbsp;
+                                    {%elif order.status == 'accepted'%}
+                                        <span class="btn btn-warning btn-sm">Accepted</span> &nbsp;
+                                    {%elif order.status == 'completed'%}
+                                        <span class="btn btn-success btn-sm">Completed</span> &nbsp; 
+                                    {%endif%} 
+                                     <a  href="{% url 'editorder' order.id %}" >
+                                            <i class="fas fa-pen"></i>  
+                                        </a>
+                                        &nbsp;
+                                       
+                                        <!-- <a  href="#" class="btn btn-danger  btn-sm" data-toggle="modal" data-target="#remove">
+                                            <i class="fas fa-trash"></i> </a>  -->
+                                               
+                                    </td>      
+
+                                
+                                </tr>
+                                {%endfor%}
+                    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+        
+<!-- remove Modal-->
+<div class="modal fade" id="remove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Order!</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Are you sure, You Want To Delete This Order?</div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Remove</button>
+                <button class="btn btn-info" type="button" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- DetailModal-->
+<div class="modal fade bd-example-modal-lg" id="detail" tabindex="-1" role="dialog" aria-labelledby="detail"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+ <div class="modal-content">
+     <div class="modal-header border-bottom-0">
+         <h5 class="title" id="detail">Order detail</h5>
+         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">×</span>
+         </button>
+        </div>
+     <div class="table-responsive mt-3">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Order Date</th>
+                    <th>Plate Number</th>
+                    <th>Tin Number</th>
+                    <th>Product Name</th>
+                    <th>Product Type</th>
+                    <th>Quantity</th>
+                    <th>Confirmed Size</th>
+                    <th>Product price</th>
+                    <th>Status</th>
+                    
+                  
+                  
+                </tr>
+            </thead>
+           
+            <tbody>
+                <tr>
+                    <td>10/15/2021</td>
+                    <td>Et-45682</td>
+                    <td>16549232569-000</td>
+                    <td>Rice 25 kg</td>
+                    <td>Besmeti</td>
+                    <td><i class="fas fa-minus fa-1x text-danger"></i> 450 kuntal</td>
+                    <td>-</td>
+                    <td>75000 ETB</td>
+                    <td><span class="btn btn-info">Pending</span></td>
+                   
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+     <div class="modal-footer">
+         <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+       
+     </div>
+ </div>
+</div>
+</div>
+
+<!-- edit Order -->
+<div class="modal fade bd-example-modal-lg" id="edit" tabindex="-1" role="dialog" aria-labelledby="detail"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+ <div class="modal-content">
+     <div class="modal-header border-bottom-0">
+         <h5 class="title" id="detail">Edit</h5>
+         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">×</span>
+         </button>
+        </div>
+        <div class="col-auto">
+           <div class="p-5">
+               <div class="text-center">
+                   <h1 class="h4 text-gray-900 mb-4">Edit Order</h1>
+               </div>
+               <!-- <form id="get_order_data" onsubmit="return false"> -->
+                   <form action="#" validate>
+                   <div class="form-group row">
+                       <label class="col-sm-3 col-form-label" align="right">Order Date</label>
+                       <div class="col-sm-6">
+                           <input type="text" id="order_date" name="order_date" readonly class="form-control form-control-sm" value="date">
+                       </div>
+                   </div>
+                   <div class="form-group row">
+                       <label class="col-sm-3 col-form-label" align="right">Plate Number</label>
+                       <div class="col-sm-6">
+                           <input type="text" id="cust_name" name="cust_name"  class="form-control form-control-sm" placeholder="Et-15194"/>
+                       </div>
+                   </div>
+            
+                   <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" align="right">Tin Number</label>
+                    <div class="col-sm-6">
+                        <input type="text" id="cust_name" name="cust_name"  class="form-control form-control-sm" placeholder="16549232569-000"/>
+                    </div>
+                </div>
+
+                    <div class="form-group row">
+                        <label for="net_total" class="col-sm-3 col-form-label" align="right">Product Name</label>
+                        <div class="col-sm-6">
+                        <input type="text"  name="net_total" class="form-control form-control-sm" id="net_total" value="Rice"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="net_total" class="col-sm-3 col-form-label" align="right">Product Size </label>
+                        <div class="col-sm-6">
+                        <input type="number"  name="psize" class="form-control form-control-sm"  value="450">(in kuntal)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="net_total" class="col-sm-3 col-form-label" align="right">Product Type</label>
+                        <div class="col-sm-6">
+                        <input type="text"  name="psize" class="form-control form-control-sm"  value="25 kg">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="net_total" class="col-sm-3 col-form-label" align="right">Product Price</label>
+                        <div class="col-sm-6">
+                        <input type="text"  name="psize" class="form-control form-control-sm"  value="75000">(ETB)
+                        </div>
+                    </div>
+
+                    <center>
+                    <input type="submit" id="order_form" style="width:150px;" class="btn btn-info" value="Save">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+                
+                    </center>
+
+
+               </form>
+
+               <hr>
+               <!-- <div class="text-center">
+                   <a class="small" href="forgot-password.html">Forgot Password?</a>
+               </div>
+               <div class="text-center">
+                   <a class="small" href="register.html">Create an Account!</a>
+               </div> -->
+           </div>
+       </div>
+      
+     <!-- <div class="modal-footer">
+         <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+         
+     </div> -->
+ </div>
+</div>
+</div>
+
+{% endblock %}

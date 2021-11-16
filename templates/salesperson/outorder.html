@@ -1,0 +1,132 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+       
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <div class="card" style="box-shadow:0 0 25px 0 lightgrey;">
+                      <div class="card-header">
+                           <h4>Out Orders</h4>
+                      </div>
+                      <div class="card-body">
+                        <form action="{% url 'outorder' %}" method="POST" class="" enctype='multipart/form-data' validate >
+                            {% csrf_token %}
+                             <!-- <div  id="latest" style="display: none;">
+                              <div class="form-group row">
+                                  <label class="col-sm-3 col-form-label" align="center">Plate Number*</label>
+                                  <div class="col-sm-6">
+                                      <input type="text" name="plnum" class="form-control form-control-sm"  value="{{odetail.licencePlate}}" required/>
+                                  </div>
+                                 
+                              </div>
+                              <div class="form-group row">
+                              <label class="col-sm-3 col-form-label" align="center">Tin Number*</label>
+                              <div class="col-sm-6">
+                                  <input type="text" name="tnum"class="form-control form-control-sm" value="{{odetail.tinNumber}}" required/>
+                              </div>
+                              </div>
+                            </div> -->
+
+                            <div  id="new"  >
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" align="center">Plate Number*</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="plnum" class="form-control form-control-sm"  value="-" required/>
+                                    </div>
+                                   
+                                </div>
+                                <div class="form-group row">
+                                <label class="col-sm-3 col-form-label" align="center">Tin Number*</label>
+                                <div class="col-sm-6">
+                                    <input type="text" name="tnum"class="form-control form-control-sm" value="-" required/>
+                                </div>
+                                </div>
+                              </div>
+    
+                              <div class="card border-left-primary shadow h-100 py-2" style="box-shadow:0 0 15px 0 lightgrey;">
+                                  <div class="card-body">
+                                      <h3 align = "center">Product</h3>
+                                      <div class="table-responsive">
+                                      <table  class="table table-borderless" id="data_table" cellspacing="0" >
+                                        <thead>
+                                          <tr>
+                                           
+                                            <th style="text-align:center;">Product</th>
+                                            <th style="text-align:center;">Quantity</th>
+                                            <th style="text-align:center;">Price (ETB)</th>
+                                            <th style="text-align:center;">Paid Price (ETB)</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="invoice_item">
+                                            <tr>
+                                                <!-- <td><b id="number">1</b></td> -->
+                                                <td>
+                                                    <select name="pid" class="form-control form-control-sm" required>
+                                                        <option value="" align="center">--select--</option>
+                                                        {%for product in products%}
+                                                        <option value="{{product.id}}" align="center">{{product.product_name}}, {{product.product_type}} {{product.product_size}} {{product.unit}}</option>
+                                                        {%endfor%}
+                                                    </select>
+                                                </td>
+                                                <td><input name="quantity" type="number" class="form-control form-control-sm" required></td>
+                                                <td><input name="price" type="number" class="form-control form-control-sm" required></td>
+                                                <td><input name="paidprice" type="number" class="form-control form-control-sm" required></td>
+                                            
+                                            </tr>
+                                     </tbody>
+                                    </table> <!--Table Ends-->
+                                    </div>
+                                    
+                                    <!-- <center style="padding:10px;">
+                                        <button id="add" style="width:150px;" class="btn btn-success">Add</button>
+                                        <button id="remove" style="width:150px;" class="btn btn-danger">Remove</button>
+                                    </center> -->
+
+                                  </div> <!--Crad Body Ends-->
+                              </div> <!-- Order List Crad Ends-->
+    
+                          
+                   
+    <br>
+    <br>
+                        <center>
+                            <input type="submit" name="more" class="btn btn-info" value="Order & Add Product"> &nbsp;
+                            <input type="submit" name="done" class="btn btn-info" value="Order">&nbsp;&nbsp;
+                            <a href="{% url 'cancel' %}" class="btn btn-danger" >Cancel</a>&nbsp;
+                            <!-- <input type="submit" id="print_invoice" style="width:150px;" class="btn btn-success d-none" value="Print Invoice"> -->
+                        </center>
+    
+    
+                          </form>
+    
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       
+    </div>
+    <!-- /.container-fluid -->
+    
+   <!-- Gebi Order Modal-->
+<!-- <script>
+    function myFunction() {
+  var x = document.getElementById("latest");
+  var y = document.getElementById("new");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+  } else {
+    y.style.display = "none";
+  }
+}
+</script>
+    -->
+   
+{% endblock %}

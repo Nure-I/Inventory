@@ -1,0 +1,57 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Stock</h1>
+        <p class="mb-4">The following table shows the Totla Stocks that are found at the warehouse in table format </p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Stock Table </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                    <th>Product</th>
+                                   
+                                    <th>Quantity</th>
+                                    
+                              
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Product</th>
+                                
+                                <th>Quantity</th>
+                               
+                              
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for s in stocks %}
+                            <tr>
+                                <td>{{s.product}}</td>
+                                <td>{{s.quantity}}</td>
+                               
+                            </tr>
+                            {% endfor %}
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+{% endblock %}

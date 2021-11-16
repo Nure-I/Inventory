@@ -1,0 +1,100 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+         <!-- Begin Page Content -->
+         <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <!-- <h1 class="h3 mb-2 text-gray-800">Confirm Order</h1> -->
+           
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                
+                <div class="card-body">
+                    <div class="col-auto">
+                        {%for order in order%}
+                                    <div class="p-2">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Confirm Order</h1>
+                                            {%if order.status == 'pending'%}
+                                            <span class="btn btn-info ">Pending</span> &nbsp;
+                                        {%elif order.status == 'accepted'%}
+                                            <span class="btn btn-warning ">Accepted</span> &nbsp;
+                                        {%elif order.status == 'completed'%}
+                                            <span class="btn btn-success ">Completed</span> &nbsp; 
+                                        {%endif%}           
+                                        </div>
+                                        <br>
+                                        <!-- <form id="get_order_data" onsubmit="return false"> -->
+                                            <form action="{% url 'confirmQuantity' order.id %}" method="POST" class="" enctype='multipart/form-data' validate >
+                                                {% csrf_token %}
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label" align="right">Order Date</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="order_date" name="order_date" readonly class="form-control form-control-sm" value="date">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3 col-form-label" align="right">Plate Number</label>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" id="cust_name" name="cust_name"  readonly class="form-control form-control-sm" placeholder="{{order.detail.licencePlate}}"/>
+                                                    </div>
+                                                </div>
+                                         
+                          
+                                          <div class="form-group row">
+                                             <label for="net_total" class="col-sm-3 col-form-label" align="right">Product Name</label>
+                                             <div class="col-sm-6">
+                                               <input type="text" readonly name="net_total" class="form-control form-control-sm" id="net_total" value="{{order.product.product_name}} {{order.product.product_type}} {{order.product.product_size}} {{order.product.unit}}"/>
+                                             </div>
+                                           </div>
+                          
+                                           <div class="form-group row">
+                                             <label for="net_total" class="col-sm-3 col-form-label" align="right">Product Size</label>
+                                             <div class="col-sm-6">
+                                               <input type="text" readonly name="psize" class="form-control form-control-sm"  value="{{order.quantity}} Kuntal"/>
+                                             </div>
+                                           </div>
+                                           <div class="form-group row">
+                                             <label for="net_total" class="col-sm-3 col-form-label" align="right">Confirmed size</label>
+                                             <div class="col-sm-2">
+                                               <input type="number" name="csize" class="form-control form-control-sm" required>
+                                             </div>
+                                           </div>
+                                           <input type="text" name="status" class="form-control form-control-sm" hidden value="accepted">
+                          
+                                          <center>
+                                            <input type="submit" id="order_form" style="width:150px;" class="btn btn-info" value="Confirm">
+                                            <a href="{% url 'wh2index' %}" class="btn btn-danger" type="button" >Cancel</a>
+                                        
+                                         </center>
+                          
+            
+            
+                                        </form>
+            
+                                        <hr>
+                                        <!-- <div class="text-center">
+                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        </div>
+                                        <div class="text-center">
+                                            <a class="small" href="register.html">Create an Account!</a>
+                                        </div> -->
+                                    </div>
+                        {%endfor%}
+                                </div>
+                                
+                                <!-- <div class="modal-footer">
+                                    <button class="btn btn-primary" type="button" data-dismiss="modal">Cancel</button>
+                                    
+                                </div> -->
+                            
+                    
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+{% endblock %}

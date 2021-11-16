@@ -1,0 +1,66 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Make Order</h1>
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+        </div>
+
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- card -->
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                
+                                <div class="h1 mb-0 font-weight-bold text-gray-800">Gebi</div>
+                            </div>
+                           
+                            <div class="col-auto">
+                            
+                                <a href="{% url 'inorder' %}"><i class="fas fa-plus fa-4x text-success"></i></a>
+                            
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              <!-- card -->
+              <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                
+                                <div class="h1 mb-0 font-weight-bold text-gray-800">Wechi</div>
+                            </div>
+                           
+                            <div class="col-auto">
+                                <a href="{% url 'outorder' %}"><i class="fas fa-minus fa-4x text-danger"></i></a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+            
+        </div>
+       
+
+    </div>
+    <!-- /.container-fluid -->
+    
+  
+{% endblock %}

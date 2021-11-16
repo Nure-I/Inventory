@@ -1,0 +1,243 @@
+
+  
+     {% if request.user.groups.all.0.name == 'sales' %}
+   <!-- Sidebar sp home -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'spindex' %}">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Sales Home<sup>*</sup></div>
+        </a>
+     
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+     
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'spindex' %}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+     
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+     
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            view
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'productlist' %}">
+                <i class="fas fa-fw fa-list"></i>
+                <span>Product List</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'makeorder' %}">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>Make an Order</span></a>
+        </li>
+        <li class="nav-item">
+         <a class="nav-link" href="{% url 'orderhistory' %}">
+             <i class="fas fa-fw fa-table"></i>
+             <span>Order History</span></a>
+     </li>
+           <!-- Divider -->
+           <hr class="sidebar-divider">
+     
+        <!-- Nav Item - Pages Collapse Menu -->
+        <div class="sidebar-heading">
+         other
+     </div>
+     <li class="nav-item">
+         <a class="nav-link" href="{% url 'stock' %}">
+             <i class="fas fa-fw fa-table"></i>
+             <span>Stock</span></a>
+     </li>
+     
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-list"></i>
+                <span>Report</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Components:</h6>
+                    <a class="collapse-item" href="{% url 'fReport' %}">financial report</a>
+                    <a class="collapse-item" href="{% url 'orderReport' %}">Order report</a>
+                </div>
+            </div>
+        </li>
+     
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+     
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+     
+     </ul>
+     <!-- End of Sidebar -->
+
+     {% elif request.user.groups.all.0.name == 'shareholder' %}
+         <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'shindex' %}">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Share Holders <sup>*</sup></div>
+        </a>
+     
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+     
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'shindex' %}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+     
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+     
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            other
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'stock' %}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Stock</span></a>
+        </li>
+        
+           <!-- Divider -->
+           <!-- <hr class="sidebar-divider"> -->
+     
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-list"></i>
+                <span>Report</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Components:</h6>
+                    <a class="collapse-item" href="{% url 'fReport' %}">financial report</a>
+                    <a class="collapse-item" href="{% url 'orderReport' %}">Order report</a>
+                </div>
+            </div>
+        </li>
+     
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+     
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+     
+     </ul>
+     <!-- End of Sidebar -->
+     
+     {% elif request.user.groups.all.0.name == 'reception' %}
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'wh1index' %}">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Ware House 1<sup>*</sup></div>
+            </a>
+         
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+         
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'wh1index' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+         
+         
+               <!-- Divider -->
+               <hr class="sidebar-divider">
+         
+            <!-- Nav Item - Pages Collapse Menu -->
+            
+         <li class="nav-item">
+             <a class="nav-link" href="{% url 'stock' %}">
+                 <i class="fas fa-fw fa-table"></i>
+                 <span>Stock</span></a>
+         </li>
+         
+          
+         
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+         
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+         
+         </ul>
+         <!-- End of Sidebar -->
+         
+    {% elif request.user.groups.all.0.name == 'stock' %}
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'wh2index' %}">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Ware House 2<sup>*</sup></div>
+                </a>
+             
+                <!-- Divider -->
+                <hr class="sidebar-divider my-0">
+             
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'wh2index' %}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Orders</span></a>
+                </li>
+                   <!-- Divider -->
+                   <hr class="sidebar-divider">
+         
+                   <!-- Nav Item - Pages Collapse Menu -->
+                   
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'stock' %}">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Stock</span></a>
+                </li>
+                
+                
+             
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+             
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+             
+             </ul>
+             <!-- End of Sidebar -->
+             
+     {%endif%}

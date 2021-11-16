@@ -1,0 +1,69 @@
+{% extends 'base2.html'%} {% load static %} {%block content%}
+<div class="bg-gradient-primary">
+  <div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg">
+                <div class="text-center">
+                  <br /><br /><br /><br /><br /><br /><br />
+                  <h1 class="h4 text-gray-900 mb-4">
+                    Inventory management system
+                  </h1>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Welcome</h1>
+                    {% include 'partials/_alerts.html' %}
+                  </div>
+                  <form class="user" action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="username">Username</label>
+                      <input
+                        type="text"
+                        name="username"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="password2">Password</label>
+                      <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        required
+                      />
+                    </div>
+                    <input
+                      type="submit"
+                      value="Login"
+                      class="btn btn-success btn-block"
+                    />
+                    <hr />
+                  </form>
+                  <hr />
+                  <!-- <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="register.html">Create an Account!</a>
+                                    </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}
