@@ -10,7 +10,7 @@ class OrderDetail(models.Model):
     licencePlate = models.IntegerField()
     tinNumber = models.IntegerField()
     bank = models.CharField(max_length=100)
-    price = models.PositiveIntegerField(max_length=20, null=True, default= '0')
+    price = models.PositiveIntegerField(null=True, default= '0')
     added = models.BooleanField(default=False)
    
    
@@ -22,10 +22,10 @@ class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     inOrder = models.BooleanField(default=False)
     outOrder = models.BooleanField(default=False)
-    quantity = models.PositiveIntegerField(max_length = 20, null=True, default= '0')
-    cquantity = models.PositiveIntegerField(max_length=50, null=True, default= '0')
-    price = models.PositiveIntegerField(max_length=20, null=True, default= '0')
-    amountsPaid = models.PositiveIntegerField(max_length=20, null=True, default= '0')
+    quantity = models.PositiveIntegerField(null=True, default= '0')
+    cquantity = models.PositiveIntegerField(null=True, default= '0')
+    price = models.PositiveIntegerField(null=True, default= '0')
+    amountsPaid = models.PositiveIntegerField(null=True, default= '0')
     orderDate = models.DateTimeField(default= datetime.now, blank=True) 
     #orderDate = models.DateTimeField(default= DateTimeField.now, blank=True) 
     status = models.CharField(max_length=100, default='pending')
