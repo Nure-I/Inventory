@@ -5,6 +5,8 @@ from store.models import Product, Stock
 from . import models
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.models import User
+from notifications.signals import notify
 # Create your views here.
 
 
@@ -32,11 +34,15 @@ def inOrder(request):
         pro = Product.objects.get(id=prid)
         #models.OrderDetail.objects.get_or_create(licencePlate = lplate, tinNumber = tnum)
         detail = OrderDetail.objects.latest('id')
-        print(detail)
+
         if detail.added:
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, inOrder='True', product_id=pro.id, detail_id=detail.id)
             OrderDetail.objects.filter(id=detail.id).update(added='False')
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order '+ str(pro) +' has arrived')
             return redirect('orderhistory')
         else:
             models.OrderDetail.objects.get_or_create(
@@ -44,6 +50,10 @@ def inOrder(request):
             detaill = OrderDetail.objects.latest('id')
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, inOrder='True', product_id=pro.id, detail_id=detaill.id)
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order has arrived')
             return redirect('orderhistory')
 
     elif request.method == 'POST' and 'more' in request.POST:
@@ -58,6 +68,10 @@ def inOrder(request):
         if detail.added:
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, inOrder='True', product_id=pro.id, detail_id=detail.id)
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order ' + str(pro) + ' has arrived')
             return redirect('inorder')
         else:
             models.OrderDetail.objects.get_or_create(
@@ -65,6 +79,10 @@ def inOrder(request):
             detaill = OrderDetail.objects.latest('id')
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, inOrder='True', product_id=pro.id, detail_id=detaill.id)
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order ' + str(pro) + ' has arrived')
             return redirect('inorder')
     context = {'products': product, 'odetail': odetail}
     return render(request, 'salesperson/inorder.html', context)
@@ -85,20 +103,21 @@ def outOrder(request):
         s = Stock.objects.get(product_id=pro.id)
         oq = int(quantity)
         sq = int(s.quantity)
-        print(type(quantity))
-        print(quantity)
-        print(type(sq))
-        print(sq)
+
         if sq < oq:
             return redirect('outorder')
 
         #models.OrderDetail.objects.get_or_create(licencePlate = lplate, tinNumber = tnum)
         detail = OrderDetail.objects.latest('id')
-        print(detail)
+
         if detail.added:
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, outOrder='True', product_id=pro.id, detail_id=detail.id)
             OrderDetail.objects.filter(id=detail.id).update(added='False')
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order ' + str(pro) + ' has arrived')
             return redirect('orderhistory')
         else:
             models.OrderDetail.objects.get_or_create(
@@ -106,6 +125,10 @@ def outOrder(request):
             detaill = OrderDetail.objects.latest('id')
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, outOrder='True', product_id=pro.id, detail_id=detaill.id)
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order ' + str(pro) + ' has arrived')
             return redirect('orderhistory')
 
     elif request.method == 'POST' and 'more' in request.POST:
@@ -120,6 +143,10 @@ def outOrder(request):
         if detail.added:
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, outOrder='True', product_id=pro.id, detail_id=detail.id)
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order ' + str(pro) + ' has arrived')
             return redirect('outorder')
         else:
             models.OrderDetail.objects.get_or_create(
@@ -127,6 +154,10 @@ def outOrder(request):
             detaill = OrderDetail.objects.latest('id')
             models.Order.objects.get_or_create(
                 quantity=quantity, amountsPaid=paidprice, price=price, outOrder='True', product_id=pro.id, detail_id=detaill.id)
+            sender = User.objects.get(username=request.user)
+            receiver = User.objects.get(username='Leyla')
+            notify.send(sender, recipient=receiver, verb='Message',
+                        description='New order ' + str(pro) + ' has arrived')
             return redirect('outorder')
     context = {'products': product, 'odetail': odetail}
     return render(request, 'salesperson/outorder.html', context)
@@ -159,7 +190,7 @@ def orderHistory(request):
 @login_required(login_url='login')
 def editOrder(request, oid):
     order = Order.objects.filter(id=oid)
-    # print(order.detail.id)
+
     product = Product.objects.all()
 
   # edit arg endaresaw !!!!!!!!!!!!!!!!!!!!
@@ -171,7 +202,6 @@ def editOrder(request, oid):
             licencePlate=lplate, tinNumber=tnum)
         d = OrderDetail.objects.get(id=detailid)
         quantity = request.POST.get('qty')
-        print(quantity)
         paidprice = request.POST.get('paidprice')
         prid = request.POST.get('pid')
         p = request.POST.get('price')

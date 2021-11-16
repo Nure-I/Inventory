@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-epj)gma11unhj_q&)!1=2d580xi6y4#(tuzxfhq6_uoue9z!)r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inventoryt.herokuapp.com']
+ALLOWED_HOSTS = ['inventoryt.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
-
     'notifications',
-
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -79,7 +77,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'inventory.wsgi.application'
 
-
+DJANGO_NOTIFICATIONS_CONFIG = {'SOFT_DELETE': True}
+DJANGO_NOTIFICATIONS_CONFIG = {'USE_JSONFIELD': True}
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -126,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Addis_Ababa'
 
 USE_I18N = True
 

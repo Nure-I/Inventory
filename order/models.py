@@ -7,8 +7,8 @@ from datetime import datetime
 # Create your models here.
 
 class OrderDetail(models.Model):
-    licencePlate = models.IntegerField()
-    tinNumber = models.IntegerField()
+    licencePlate = models.CharField(max_length=10)
+    tinNumber = models.CharField(max_length=20)
     bank = models.CharField(max_length=100)
     price = models.PositiveIntegerField(null=True, default= '0')
     added = models.BooleanField(default=False)
