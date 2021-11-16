@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-epj)gma11unhj_q&)!1=2d580xi6y4#(tuzxfhq6_uoue9z!)r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['inventoryt.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['inventoryt.herokuapp.com']
 
 
 # Application definition
@@ -93,11 +93,12 @@ WSGI_APPLICATION = 'inventory.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inventorydb',
-        'USER': 'postgres',
-        'PASSWORD': 'humble',
-        'HOST': 'localhost'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd584pdhss1gmfi',
+        'USER': 'ruqfuaffyfgzon',
+        'PASSWORD': '931ef02aa53b0e738a6536386fec44ecb8a6317390fa1178f103cfaa65555fef',
+        'HOST': 'ec2-3-215-57-87.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
