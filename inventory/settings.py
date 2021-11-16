@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-epj)gma11unhj_q&)!1=2d580xi6y4#(tuzxfhq6_uoue9z!)r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','inventoryt.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','https://inventoryt.herokuapp.com/']
 
 
 # Application definition
