@@ -32,10 +32,11 @@ def updateStatus(request, oid):
     if request.method == 'POST':
         status = request.POST.get('status')
         order = Order.objects.filter(id=oid).update(status=status)
+        ord = Order.objects.get(id = oid)
         sender = User.objects.get(username=request.user)
         receiver = User.objects.get(username='Bilal')
         notify.send(sender, recipient=receiver, verb='Message',
-                    description='New order '+ order.product +'has arrived')
+                    description='New order "'+ str(ord.product) +'" has arrived')
 
         return redirect('wh1index')
 
@@ -72,9 +73,9 @@ def confirmQuantity(request, oid):
             Order.objects.filter(id=oid).update(status='completed')
             Order.objects.filter(id=oid).update(cquantity=cQuantity)
             sender = User.objects.get(username=request.user)
-            receiver = User.objects.get(username='Leyla')
+            receiver = User.objects.get(username='Ezedin')
             notify.send(sender, recipient=receiver, verb='Message',
-                        description='Your order ' + pro + ' has stocked')
+                        description='Your order "' + str(product) + '" has stocked')
             return redirect('wh2index')
     elif order.outOrder:
         if request.method == 'POST':
@@ -89,9 +90,9 @@ def confirmQuantity(request, oid):
             Order.objects.filter(id=oid).update(status='completed')
             Order.objects.filter(id=oid).update(cquantity=cQuantity)
             sender = User.objects.get(username=request.user)
-            receiver = User.objects.get(username='Leyla')
+            receiver = User.objects.get(username='Ezedin')
             notify.send(sender, recipient=receiver, verb='Message',
-                        description='Your order ' + pro + ' has loaded')
+                        description='Your order "' + str(product) + '" has loaded')
             return redirect('wh2index')
 
 
